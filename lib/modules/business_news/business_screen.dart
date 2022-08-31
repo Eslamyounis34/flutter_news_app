@@ -20,7 +20,7 @@ class BusinessScreen extends StatelessWidget {
           builder: (context) =>
               ListView.separated(
                 physics: BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => buildArticleItem(list[index]),
+                  itemBuilder: (context, index) => buildArticleItem(list[index],context),
                   separatorBuilder:(context,index) =>articleDivider() ,
                   itemCount: list.length),
           fallback: (context) => Center(child: CircularProgressIndicator()),

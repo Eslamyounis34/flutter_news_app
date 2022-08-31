@@ -21,7 +21,7 @@ class SportsScreen extends StatelessWidget {
             condition:state is! GetSportsNewsLoadingState,
             builder: (context) =>
                 ListView.separated(itemBuilder: (context, index) =>
-                    buildArticleItem(sportsList[index]),
+                    buildArticleItem(sportsList[index],context),
                     separatorBuilder: (context,index) =>articleDivider(),
                     itemCount: sportsList.length),
             fallback: (context) => Center(child: CircularProgressIndicator()),

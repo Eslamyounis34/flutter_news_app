@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app/layout/news/news_cubit.dart';
 import 'package:flutter_news_app/layout/news/news_states.dart';
+import 'package:flutter_news_app/shared/cubit/cubit.dart';
 
 class NewsScreen extends StatelessWidget {
   @override
@@ -17,7 +18,12 @@ class NewsScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('News App'),
-              actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+              actions: [
+                IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                IconButton(onPressed: () {
+                  AppCubit.get(context).changeDarkMode();
+                }, icon: Icon(Icons.brightness_4_outlined))
+              ],
             ),
             bottomNavigationBar: BottomNavigationBar(
               onTap: (value) {
