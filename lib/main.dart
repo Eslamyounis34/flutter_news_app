@@ -4,22 +4,31 @@ import 'package:flutter_news_app/layout/news/news_layout.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_news_app/shared/cubit/cubit.dart';
 import 'package:flutter_news_app/shared/cubit/states.dart';
+import 'package:flutter_news_app/shared/data/local/chache_helper.dart';
 import 'package:flutter_news_app/shared/data/remote/dio_helper.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
+  await CacheHelper.init();
+
+  bool isDark = CacheHelper.getData(key: 'isDark') ?? false;
+
+  runApp(MyApp(isDark!));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final bool isDark;
+
+  MyApp(this.isDark);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => AppCubit(),
+        create: (BuildContext context) =>
+            AppCubit()..changeDarkMode(fromShared: isDark),
         child: BlocConsumer<AppCubit, AppStates>(
           listener: (context, state) {},
           builder: (context, state) => MaterialApp(
@@ -72,7 +81,8 @@ class MyApp extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.w600))),
-            themeMode: AppCubit.get(context).isDark? ThemeMode.dark : ThemeMode.light,
+            themeMode:
+                AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
             home: Directionality(
                 textDirection: TextDirection.rtl, child: NewsScreen()),
           ),
