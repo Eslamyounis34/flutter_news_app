@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app/modules/webview/web_view.dart';
 
 Widget defaultButton({
   required double width,
@@ -51,52 +52,57 @@ Widget defaultTextField({
               onPressed: suffixPressed,
             )));
 
-Widget buildArticleItem(article,context) => Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Row(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: NetworkImage(
-                        '${article['urlToImage']}'),
-                    fit: BoxFit.cover)),
-            width: 120,
-            height: 100,
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Container(
+Widget buildArticleItem(article,context) => InkWell(
+  onTap: (){
+    navigateTo(context, WebViewScreen(article['url']));
+  },
+  child:   Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          '${article['urlToImage']}'),
+                      fit: BoxFit.cover)),
+              width: 120,
               height: 100,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      '${article['title']}',
-                      style:Theme.of(context).textTheme.bodyText1,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Text(
-                    '${article['publishedAt']}',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey),
-                  )
-                ],
-              ),
             ),
-          )
-        ],
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Container(
+                height: 100,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '${article['title']}',
+                        style:Theme.of(context).textTheme.bodyText1,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text(
+                      '${article['publishedAt']}',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
-    );
+);
 
 Widget articleDivider() => Container(
       height: 2.00,
