@@ -43,6 +43,7 @@ class MyApp extends StatelessWidget {
               appBarTheme: const AppBarTheme(
                   backgroundColor: Colors.red,
                   elevation: 15,
+                  centerTitle: true,
                   backwardsCompatibility: false,
                   systemOverlayStyle: SystemUiOverlayStyle(
                       statusBarColor: Colors.red,
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
               appBarTheme: const AppBarTheme(
                   backgroundColor: Colors.red,
                   elevation: 15,
+                  centerTitle: true,
                   backwardsCompatibility: false,
                   systemOverlayStyle: SystemUiOverlayStyle(
                       statusBarColor: Colors.red,

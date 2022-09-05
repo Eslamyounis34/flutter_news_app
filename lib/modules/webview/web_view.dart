@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class WebViewScreen extends StatelessWidget {
   late String url;
@@ -13,8 +13,10 @@ class WebViewScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Article'),
       ),
-      body: WebView(
-        initialUrl: url,
+      body: InAppWebView(
+        initialUrlRequest: URLRequest(
+          url:Uri.parse(url)
+        ),
       ) ,
     );
   }
