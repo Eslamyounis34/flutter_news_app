@@ -25,24 +25,27 @@ Widget defaultButton({
 Widget defaultTextField({
   required TextEditingController controller,
   required TextInputType type,
-  required String text,
-  required IconData iconData,
+  required String label,
+  required IconData prefix,
+  Function? Function(String? value)? onChange,
   required String? validate(String? value),
   bool isPassword = false,
   VoidCallback? onFormTap,
   IconData? sufficIcon,
   VoidCallback? suffixPressed,
+
 }) =>
     TextFormField(
         controller: controller,
         keyboardType: type,
         validator: validate,
         obscureText: isPassword,
+        onChanged: onChange,
         onTap: onFormTap,
         decoration: InputDecoration(
-            labelText: text,
+            labelText: label,
             border: OutlineInputBorder(),
-            prefixIcon: Icon(iconData),
+            prefixIcon: Icon(prefix),
             suffixIcon: IconButton(
               icon: Icon(sufficIcon),
               onPressed: suffixPressed,
@@ -99,3 +102,7 @@ Widget articleDivider() => Container(
       height: 2.00,
       color: Colors.grey[200],
     );
+
+void navigateTo(context,widget) =>Navigator.push(context,
+MaterialPageRoute(builder: (context) => widget)) ;
+

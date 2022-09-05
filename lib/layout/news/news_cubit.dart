@@ -18,10 +18,9 @@ class NewsCubit extends Cubit<NewsStates> {
 
   void changeBottomNav(int index) {
     currentIndex = index;
-    if(index==1){
+    if (index == 1) {
       getSportsData();
-    }
-    else if(index==2){
+    } else if (index == 2) {
       getScienceData();
     }
     emit(NewsChangeBottomNav());
@@ -30,7 +29,7 @@ class NewsCubit extends Cubit<NewsStates> {
   List<dynamic> businessList = [];
   List<dynamic> sportsList = [];
   List<dynamic> scienceList = [];
-
+  List<dynamic> searchList = [];
 
   void getBusinessData() {
     emit(GetBusinessNewsLoadingState());
@@ -38,16 +37,13 @@ class NewsCubit extends Cubit<NewsStates> {
       'country': 'eg',
       'category': 'business',
       'apiKey': 'bdc695c2d6c64e9a82a711dc5575b9d1',
-    })
-        .then((value)  {
-                print(value!.data.toString());
-              businessList = value.data['articles'];
-              emit(GetBusinessNewsSuccessState());
-            })
-        .catchError((onError) {
-      print('error'+onError.toString());
-      emit(GetBusinessNewsErrorState('error is : '+onError.toString()));
-
+    }).then((value) {
+      print(value!.data.toString());
+      businessList = value.data['articles'];
+      emit(GetBusinessNewsSuccessState());
+    }).catchError((onError) {
+      print('error' + onError.toString());
+      emit(GetBusinessNewsErrorState('error is : ' + onError.toString()));
     });
   }
 
@@ -57,16 +53,13 @@ class NewsCubit extends Cubit<NewsStates> {
       'country': 'eg',
       'category': 'sport',
       'apiKey': 'bdc695c2d6c64e9a82a711dc5575b9d1',
-    })
-        .then((value)  {
+    }).then((value) {
       print(value!.data.toString());
       sportsList = value.data['articles'];
       emit(GetSportsNewsSuccessState());
-    })
-        .catchError((onError) {
-      print('error'+onError.toString());
-      emit(GetSportsNewsErrorState('error is : '+onError.toString()));
-
+    }).catchError((onError) {
+      print('error' + onError.toString());
+      emit(GetSportsNewsErrorState('error is : ' + onError.toString()));
     });
   }
 
@@ -76,18 +69,27 @@ class NewsCubit extends Cubit<NewsStates> {
       'country': 'eg',
       'category': 'science',
       'apiKey': 'bdc695c2d6c64e9a82a711dc5575b9d1',
-    })
-        .then((value)  {
+    }).then((value) {
       print(value!.data.toString());
       scienceList = value.data['articles'];
       emit(GetScienceNewsSuccessState());
-    })
-        .catchError((onError) {
-      print('error'+onError.toString());
-      emit(GetScienceNewsErrorState('error is : '+onError.toString()));
-
+    }).catchError((onError) {
+      print('error' + onError.toString());
+      emit(GetScienceNewsErrorState('error is : ' + onError.toString()));
     });
   }
 
-
+  void getSearchData(String query) {
+    searchList = [];
+    emit(GetSearchNewsLoadingState());
+    DioHelper.getData(
+      url: 'v2/everything',
+      query: {'q': '$query', 'apiKey': 'bdc695c2d6c64e9a82a711dc5575b9d1'},
+    ).then((value) {
+      searchList = value?.data['articles'];
+      emit(GetSearchNewsSuccessState());
+    }).catchError((onError) {
+      emit(GetSearchNewsErrorState('error is : ' + onError.toString()));
+    });
+  }
 }
