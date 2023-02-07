@@ -39,17 +39,17 @@ class SearchScreen extends StatelessWidget {
                         }
                         return null;
                       }),
-
-                  SizedBox(height: 10,),
-
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Expanded(
                     child: ListView.separated(
                         physics: BouncingScrollPhysics(),
-                        itemBuilder: (context, index) => buildArticleItem(list[index],context),
-                        separatorBuilder:(context,index) =>articleDivider() ,
+                        itemBuilder: (context, index) =>
+                            buildArticleItem(list[index], context),
+                        separatorBuilder: (context, index) => articleDivider(),
                         itemCount: list.length),
                   ),
-
                 ],
               ),
             ));
