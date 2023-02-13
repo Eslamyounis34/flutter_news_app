@@ -46,7 +46,7 @@ class SearchScreen extends StatelessWidget {
                     child: ListView.separated(
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) =>
-                            buildArticleItem(list[index], context),
+                            buildArticleItem(list[index], context,index),
                         separatorBuilder: (context, index) => articleDivider(),
                         itemCount: list.length),
                   ),

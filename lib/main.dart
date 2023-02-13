@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app/layout/news/news_layout.dart';
@@ -9,11 +12,14 @@ import 'package:flutter_news_app/shared/data/local/chache_helper.dart';
 import 'package:flutter_news_app/shared/data/remote/dio_helper.dart';
 import 'package:flutter_news_app/shared/styles.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import 'layout/news/news_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isMacOS) await DesktopWindow.setMinWindowSize(Size(800, 650));
   DioHelper.init();
   await CacheHelper.init();
 
@@ -33,9 +39,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => NewsCubit()..getBusinessData()),
-        BlocProvider(create: (context) => AppCubit()..changeDarkMode(fromShared: isDark)),
-
-    ],
+        BlocProvider(
+            create: (context) =>
+                AppCubit()..changeDarkMode(fromShared: isDark)),
+      ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) => MaterialApp(
@@ -45,7 +52,9 @@ class MyApp extends StatelessWidget {
           themeMode:
               AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
           home: Directionality(
-              textDirection: TextDirection.rtl, child: NewsScreen()),
+            textDirection: TextDirection.rtl,
+            child: NewsScreen(),
+          ),
         ),
       ),
     );

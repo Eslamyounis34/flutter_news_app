@@ -31,6 +31,8 @@ class NewsCubit extends Cubit<NewsStates> {
   List<dynamic> scienceList = [];
   List<dynamic> searchList = [];
 
+  int businessSelectedItem = 1;
+
   void getBusinessData() {
     emit(GetBusinessNewsLoadingState());
     DioHelper.getData(url: 'v2/top-headlines', query: {
@@ -40,11 +42,29 @@ class NewsCubit extends Cubit<NewsStates> {
     }).then((value) {
       print(value!.data.toString());
       businessList = value.data['articles'];
+      // businessList.forEach((element) {
+      //   businessSelectedItem.add(false);
+      // });
       emit(GetBusinessNewsSuccessState());
     }).catchError((onError) {
       print('error' + onError.toString());
       emit(GetBusinessNewsErrorState('error is : ' + onError.toString()));
     });
+  }
+
+  void selectedBusinessItem(index) {
+    // businessSelectedItem[index] = true;
+    //
+    // for (int i = 0; i < businessSelectedItem.length; i++) {
+    //   if (i == index)
+    //     businessSelectedItem[i] = true;
+    //   else
+    //     businessSelectedItem[i] = false;
+    // }
+
+    businessSelectedItem = index;
+
+    emit(BusinessSelectedItemState());
   }
 
   void getSportsData() {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_news_app/layout/news/news_cubit.dart';
 import 'package:flutter_news_app/modules/webview/web_view.dart';
 
 Widget defaultButton({
@@ -34,7 +35,6 @@ Widget defaultTextField({
   VoidCallback? onFormTap,
   IconData? sufficIcon,
   VoidCallback? suffixPressed,
-
 }) =>
     TextFormField(
         controller: controller,
@@ -52,63 +52,67 @@ Widget defaultTextField({
               onPressed: suffixPressed,
             )));
 
-Widget buildArticleItem(article,context) => InkWell(
-  onTap: (){
-    navigateTo(context, WebViewScreen(article['url']));
-  },
-  child:   Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          '${article['urlToImage']}'),
-                      fit: BoxFit.cover)),
-              width: 120,
-              height: 100,
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Expanded(
-              child: Container(
+Widget buildArticleItem(article, context, index) => Container(
+      color: NewsCubit.get(context).businessSelectedItem == index
+          ? Colors.grey[200]
+          : null,
+      child: InkWell(
+        onTap: () {
+//  navigateTo(context, WebViewScreen(article['url']));
+          NewsCubit.get(context).selectedBusinessItem(index);
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                        image: NetworkImage('${article['urlToImage']}'),
+                        fit: BoxFit.cover)),
+                width: 120,
                 height: 100,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${article['title']}',
-                        style:Theme.of(context).textTheme.bodyText1,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Text(
-                      '${article['publishedAt']}',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey),
-                    )
-                  ],
-                ),
               ),
-            )
-          ],
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: Container(
+                  height: 100,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '${article['title']}',
+                          style: Theme.of(context).textTheme.bodyText1,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text(
+                        '${article['publishedAt']}',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
-);
+    );
 
 Widget articleDivider() => Container(
       height: 2.00,
       color: Colors.grey[200],
     );
 
-void navigateTo(context,widget) =>Navigator.push(context,
-MaterialPageRoute(builder: (context) => widget)) ;
-
+void navigateTo(context, widget) =>
+    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));

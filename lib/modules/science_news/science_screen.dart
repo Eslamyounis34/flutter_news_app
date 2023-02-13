@@ -21,7 +21,7 @@ class ScienceScreen extends StatelessWidget {
             condition:state is! GetScienceNewsLoadingState,
             builder: (context) =>
                 ListView.separated(itemBuilder: (context, index) =>
-                    buildArticleItem(scienceist[index],context),
+                    buildArticleItem(scienceist[index],context,index),
                     separatorBuilder: (context,index) =>articleDivider(),
                     itemCount: scienceist.length),
             fallback: (context) => Center(child: CircularProgressIndicator()),
