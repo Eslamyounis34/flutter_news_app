@@ -23,7 +23,7 @@ class BusinessScreen extends StatelessWidget {
             builder: (context) => ListView.separated(
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) =>
-                    buildArticleItem(list[index], context, index),
+                    buildArticleMobileItem(list[index], context, index),
                 separatorBuilder: (context, index) => articleDivider(),
                 itemCount: list.length),
             fallback: (context) => Center(child: CircularProgressIndicator()),
@@ -46,8 +46,8 @@ class BusinessScreen extends StatelessWidget {
               ),
               Expanded(
                   child: SingleChildScrollView(
-                    child: Container(
-                child: Column(
+                child: Container(
+                  child: Column(
                     children: [
                       //'${list[NewsCubit.get(context).businessSelectedItem]['urlToImage']}'
                       Container(
@@ -92,7 +92,7 @@ class BusinessScreen extends StatelessWidget {
                                       : '${list[NewsCubit.get(context).businessSelectedItem]['title']}',
                                   style: const TextStyle(
                                       fontSize: 30,
-                                       fontFamily: 'Cairo',
+                                      fontFamily: 'Cairo',
                                       color: Colors.black)),
                             ),
                           ],
@@ -117,9 +117,9 @@ class BusinessScreen extends StatelessWidget {
                         ),
                       )
                     ],
+                  ),
                 ),
-              ),
-                  ))
+              ))
             ],
           ),
           breakpoints: ScreenBreakpoints(desktop: 800, tablet: 600, watch: 100),
