@@ -19,7 +19,7 @@ import 'layout/news/news_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (Platform.isMacOS) await DesktopWindow.setMinWindowSize(Size(800, 650));
+
   DioHelper.init();
   await CacheHelper.init();
 
