@@ -15,10 +15,8 @@ class BusinessScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var list = NewsCubit.get(context).businessList;
-      //  var currentIndex=NewsCubit.get(context).businessSelectedItem;
-      //  var testData=list[NewsCubit.get(context).businessSelectedItem]['description'];
-       // print("APIDATA"+testData.toString());
-        print("list of business =" + list.toString());
+        //  var testData=list[NewsCubit.get(context).businessSelectedItem]['description'];
+        // print("APIDATA"+testData.toString());
         return ScreenTypeLayout(
           mobile: BuildCondition(
             condition: state is! GetBusinessNewsLoadingState,
@@ -33,7 +31,7 @@ class BusinessScreen extends StatelessWidget {
           desktop: Row(
             children: [
               Container(
-                width: 450,
+                width: 380,
                 child: BuildCondition(
                   condition: state is! GetBusinessNewsLoadingState,
                   builder: (context) => ListView.separated(
@@ -47,13 +45,79 @@ class BusinessScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                  child: Container(
-                    color: Colors.grey[100],
-                    child: Column(
-
-                children: [
-                    Text('${list[NewsCubit.get(context).businessSelectedItem]['description']}'),
-                ],
+                  child: SingleChildScrollView(
+                    child: Container(
+                child: Column(
+                    children: [
+                      //'${list[NewsCubit.get(context).businessSelectedItem]['urlToImage']}'
+                      Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(list.isEmpty
+                                    ? 'https://cdn-icons-png.flaticon.com/512/3875/3875433.png'
+                                    : list[NewsCubit.get(context)
+                                                    .businessSelectedItem]
+                                                ['urlToImage'] ==
+                                            null
+                                        ? 'https://cdn-icons-png.flaticon.com/512/3875/3875433.png'
+                                        : '${list[NewsCubit.get(context).businessSelectedItem]['urlToImage']}'),
+                                fit: BoxFit.fill)),
+                        width: double.infinity,
+                        height: 400,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16, top: 15),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                list.isEmpty
+                                    ? 'Select Article '
+                                    : '${list[NewsCubit.get(context).businessSelectedItem]['publishedAt']}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.deepOrange)),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                  list.isEmpty
+                                      ? 'Select Article '
+                                      : '${list[NewsCubit.get(context).businessSelectedItem]['title']}',
+                                  style: const TextStyle(
+                                      fontSize: 30,
+                                       fontFamily: 'Cairo',
+                                      color: Colors.black)),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                  list.isEmpty
+                                      ? 'Select Article '
+                                      : '${list[NewsCubit.get(context).businessSelectedItem]['description']}',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.grey)),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                ),
               ),
                   ))
             ],

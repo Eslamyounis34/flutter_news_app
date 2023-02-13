@@ -69,7 +69,9 @@ Widget buildArticleItem(article, context, index) => Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                        image: NetworkImage('${article['urlToImage']}'),
+                        image: NetworkImage(article['urlToImage'] == null
+                            ? 'https://cdn-icons-png.flaticon.com/512/3875/3875433.png'
+                            : '${article['urlToImage']}'),
                         fit: BoxFit.cover)),
                 width: 120,
                 height: 100,
@@ -96,6 +98,7 @@ Widget buildArticleItem(article, context, index) => Container(
                         '${article['publishedAt']}',
                         style: TextStyle(
                             fontSize: 18,
+                             fontFamily: 'Cairo',
                             fontWeight: FontWeight.w600,
                             color: Colors.grey),
                       )

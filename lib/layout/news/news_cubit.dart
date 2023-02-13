@@ -31,7 +31,7 @@ class NewsCubit extends Cubit<NewsStates> {
   List<dynamic> scienceList = [];
   List<dynamic> searchList = [];
 
-  int businessSelectedItem = 1;
+  int businessSelectedItem = 0;
 
   void getBusinessData() {
     emit(GetBusinessNewsLoadingState());
@@ -46,6 +46,8 @@ class NewsCubit extends Cubit<NewsStates> {
       //   businessSelectedItem.add(false);
       // });
       emit(GetBusinessNewsSuccessState());
+    //  emit(BusinessSelectedItemState());
+
     }).catchError((onError) {
       print('error' + onError.toString());
       emit(GetBusinessNewsErrorState('error is : ' + onError.toString()));
