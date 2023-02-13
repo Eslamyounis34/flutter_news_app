@@ -15,8 +15,7 @@ class BusinessScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var list = NewsCubit.get(context).businessList;
-        //  var testData=list[NewsCubit.get(context).businessSelectedItem]['description'];
-        // print("APIDATA"+testData.toString());
+
         return ScreenTypeLayout(
           mobile: BuildCondition(
             condition: state is! GetBusinessNewsLoadingState,
@@ -37,7 +36,7 @@ class BusinessScreen extends StatelessWidget {
                   builder: (context) => ListView.separated(
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) =>
-                          buildArticleItem(list[index], context, index),
+                          buildArticleDesktopItem(list[index], context, index),
                       separatorBuilder: (context, index) => articleDivider(),
                       itemCount: list.length),
                   fallback: (context) =>

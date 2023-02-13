@@ -1,4 +1,3 @@
-import 'package:buildcondition/buildcondition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +45,7 @@ class SearchScreen extends StatelessWidget {
                     child: ListView.separated(
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) =>
-                            buildArticleItem(list[index], context,index),
+                            buildArticleMobileItem(list[index], context,index),
                         separatorBuilder: (context, index) => articleDivider(),
                         itemCount: list.length),
                   ),

@@ -52,7 +52,7 @@ Widget defaultTextField({
               onPressed: suffixPressed,
             )));
 
-Widget buildArticleItem(article, context, index) => Container(
+Widget buildArticleDesktopItem(article, context, index) => Container(
       color: NewsCubit.get(context).businessSelectedItem == index
           ? Colors.grey[200]
           : null,
@@ -176,6 +176,8 @@ Widget articleDivider() => Container(
       height: 2.00,
       color: Colors.grey[200],
     );
+
+
 
 void navigateTo(context, widget) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
