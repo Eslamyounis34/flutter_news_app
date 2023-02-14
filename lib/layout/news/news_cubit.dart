@@ -43,7 +43,6 @@ class NewsCubit extends Cubit<NewsStates> {
       print(value!.data.toString());
       businessList = value.data['articles'];
       emit(GetBusinessNewsSuccessState());
-
     }).catchError((onError) {
       print('error' + onError.toString());
       emit(GetBusinessNewsErrorState('error is : ' + onError.toString()));
@@ -90,12 +89,15 @@ class NewsCubit extends Cubit<NewsStates> {
 
   void getSearchData(String query) {
     searchList = [];
+
     emit(GetSearchNewsLoadingState());
     DioHelper.getData(
       url: 'v2/everything',
       query: {'q': '$query', 'apiKey': 'bdc695c2d6c64e9a82a711dc5575b9d1'},
     ).then((value) {
       searchList = value?.data['articles'];
+      businessSelectedItem = 0;
+      emit(BusinessSelectedItemState());
       emit(GetSearchNewsSuccessState());
     }).catchError((onError) {
       emit(GetSearchNewsErrorState('error is : ' + onError.toString()));
