@@ -112,6 +112,64 @@ Widget buildArticleDesktopItem(article, context, index) => Container(
       ),
     );
 
+Widget buildArticleMobileSearchItem(article, context) => Container(
+
+      child: InkWell(
+        onTap: () {
+          navigateTo(context, WebViewScreen(article['url']));
+         // NewsCubit.get(context).selectedBusinessItem(index);
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                        image: NetworkImage(article['urlToImage'] == null
+                            ? 'https://cdn-icons-png.flaticon.com/512/3875/3875433.png'
+                            : '${article['urlToImage']}'),
+                        fit: BoxFit.cover)),
+                width: 120,
+                height: 100,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: Container(
+                  height: 100,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '${article['title']}',
+                          style: Theme.of(context).textTheme.bodyText1,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text(
+                        '${article['publishedAt']}',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Cairo',
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+
 Widget buildArticleMobileItem(article, context, index) => Container(
       color: NewsCubit.get(context).businessSelectedItem == index
           ? Colors.grey[200]
@@ -176,8 +234,6 @@ Widget articleDivider() => Container(
       height: 2.00,
       color: Colors.grey[200],
     );
-
-
 
 void navigateTo(context, widget) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
