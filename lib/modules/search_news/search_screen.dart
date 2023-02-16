@@ -18,7 +18,9 @@ class SearchScreen extends StatelessWidget {
         var list = NewsCubit.get(context).searchList;
         print("list of search =" + list.toString());
         return Scaffold(
-            appBar: AppBar(title: Text('Search')),
+            appBar: AppBar(title: Text('Search'),backgroundColor: Colors.white,  iconTheme: IconThemeData(
+              color: Colors.black, // <-- SEE HERE
+            )),
             body: Directionality(
               textDirection: TextDirection.rtl,
               child: ScreenTypeLayout(
@@ -66,51 +68,63 @@ class SearchScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(20),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 300,
-                            child: defaultTextField(
-                                controller: searchController,
-                                type: TextInputType.text,
-                                label: 'Search',
-                                prefix: Icons.search,
-                                onChange: (value) {
-                                  NewsCubit.get(context).getSearchData(value!);
-                                  print('searchResult : ' +
-                                      NewsCubit.get(context)
-                                          .searchList
-                                          .toString());
-                                },
-                                validate: (String? value) {
-                                  if (value!.isEmpty) {
-                                    return 'Search is empty';
-                                  }
-                                  return null;
-                                }),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Expanded(
-                            child: Container(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
                               width: 380,
-                              child: BuildCondition(
-                                condition: state is! GetSearchNewsLoadingState,
-                                builder: (context) => ListView.separated(
-                                    physics: BouncingScrollPhysics(),
-                                    itemBuilder: (context, index) =>
-                                        buildArticleDesktopItem(
-                                            list[index], context, index),
-                                    separatorBuilder: (context, index) =>
-                                        articleDivider(),
-                                    itemCount: list.length),
-                                fallback: (context) =>
-                                    Center(child: CircularProgressIndicator()),
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child:
+                                defaultTextField(
+                                    controller: searchController,
+                                    type: TextInputType.text,
+                                    label: 'Search',
+                                    prefix: Icons.search,
+                                    onChange: (value) {
+                                      NewsCubit.get(context)
+                                          .getSearchData(value!);
+                                      print('searchResult : ' +
+                                          NewsCubit.get(context)
+                                              .searchList
+                                              .toString());
+                                    },
+                                    validate: (String? value) {
+                                      if (value!.isEmpty) {
+                                        return 'Search is empty';
+                                      }
+                                      return null;
+                                    }),
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Expanded(
+                              child: Container(
+                                width: 380,
+                                child: BuildCondition(
+                                  condition:
+                                      state is! GetSearchNewsLoadingState,
+                                  builder: (context) => ListView.separated(
+                                      physics: BouncingScrollPhysics(),
+                                      itemBuilder: (context, index) =>
+                                          buildArticleDesktopItem(
+                                              list[index], context, index),
+                                      separatorBuilder: (context, index) =>
+                                          articleDivider(),
+                                      itemCount: list.length),
+                                  fallback: (context) => Center(
+                                      child: CircularProgressIndicator()),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(

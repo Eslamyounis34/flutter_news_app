@@ -29,14 +29,14 @@ ThemeData lightTheme = ThemeData(
   fontFamily: 'Cairo',
     primarySwatch: Colors.deepOrange,
     appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.white,
         elevation: 15,
         centerTitle: true,
         backwardsCompatibility: false,
         systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: Colors.red, statusBarBrightness: Brightness.dark),
         titleTextStyle: TextStyle(
-            color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold ,fontFamily: "Cairo")),
+            color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold ,fontFamily: "Cairo")),
     scaffoldBackgroundColor: Colors.white,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,

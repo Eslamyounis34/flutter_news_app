@@ -19,6 +19,9 @@ class NewsScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text('News App'),
+              iconTheme: IconThemeData(
+                color: Colors.black, // <-- SEE HERE
+              ),
             actions: [
               IconButton(
                   onPressed: () {

@@ -43,22 +43,45 @@ Widget defaultTextField({
         obscureText: isPassword,
         onChanged: onChange,
         onTap: onFormTap,
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
-            labelText: label,
-            border: OutlineInputBorder(),
-            prefixIcon: Icon(prefix),
-            suffixIcon: IconButton(
-              icon: Icon(sufficIcon),
-              onPressed: suffixPressed,
-            )));
+          // labelText: label,
+          // prefixIcon: Icon(prefix),
+          // suffixIcon: IconButton(
+          //   icon: Icon(sufficIcon),
+          //   onPressed: suffixPressed,
+          // )
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: Colors.white,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: controller.value.text.isEmpty
+                  ? Color(0xffC2C2C2)
+                  : Colors.orange,
+              width: 1.0,
+            ),
+          ),
+          hintText: 'Search',
+          hintStyle: TextStyle(
+            fontSize: 10,
+            color: Colors.white,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ));
 
 Widget buildArticleDesktopItem(article, context, index) => Container(
       color: NewsCubit.get(context).businessSelectedItem == index
-          ? Colors.grey[200]
+          ? Colors.grey
           : null,
       child: InkWell(
         onTap: () {
-//  navigateTo(context, WebViewScreen(article['url']));
           NewsCubit.get(context).selectedBusinessItem(index);
         },
         child: Padding(
@@ -113,11 +136,10 @@ Widget buildArticleDesktopItem(article, context, index) => Container(
     );
 
 Widget buildArticleMobileSearchItem(article, context) => Container(
-
       child: InkWell(
         onTap: () {
           navigateTo(context, WebViewScreen(article['url']));
-         // NewsCubit.get(context).selectedBusinessItem(index);
+// NewsCubit.get(context).selectedBusinessItem(index);
         },
         child: Padding(
           padding: const EdgeInsets.all(12.0),
